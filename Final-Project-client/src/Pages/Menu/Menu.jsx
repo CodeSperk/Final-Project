@@ -1,4 +1,6 @@
 import { Helmet } from "react-helmet-async";
+import PageBanner from "../../Components/PageBanner/PageBanner";
+import menuBanner from "../../assets/menu/banner3.jpg";
 
 const Menu = () => {
   return (
@@ -7,7 +9,8 @@ const Menu = () => {
         <title>TasteTrack | Menu </title>
       </Helmet>
 
-      this is Menu page
+      {/* Banner */}
+      <PageBanner img={menuBanner} title="Our Menu" description="Would you like to try a dish?"></PageBanner>
     </div>
   );
 };
