@@ -7,6 +7,7 @@ import MenuButton from "../../Components/MenuButton/MenuButton";
 import FeaturedContent from "./Featured/FeaturedContent";
 import "./Featured/Featured.css"
 import Testimonial from "./Testimonial/Testimonial";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   const [menus, setMenus] = useState([]);
@@ -22,6 +23,11 @@ const Home = () => {
 
   return (
     <div>
+            <Helmet>
+        <title>TasteTrack | Home </title>
+      </Helmet>
+
+
       <HomeBanner></HomeBanner>
 
       {/* Food Category Section */}
