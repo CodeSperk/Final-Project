@@ -27,9 +27,17 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     const menuCollection = client.db("TasteTrackDB").collection("menu");
+    const reviewCollection = client.db("TasteTrackDB").collection("reviews");
 
+    // To get menu data
     app.get("/menu", async(req, res) => {
       const result = await menuCollection.find().toArray();
+      res.send(result);
+    })
+
+    // To get review data
+    app.get("/reviews", async(req, res) => {
+      const result = await reviewCollection.find().toArray();
       res.send(result);
     })
     
