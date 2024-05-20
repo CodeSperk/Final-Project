@@ -5,6 +5,7 @@ import Menu from "../Pages/Menu/Menu";
 import Order from "../Pages/Order/Order";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
+import Contact from "../Pages/Contact/Contact";
 
 const Routes = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const Routes = createBrowserRouter([
       {
         path:"/login",
         element:<Login></Login>
+      },
+      {
+        path:"/contact",
+        element:<Contact></Contact>
       }
     ]
   },

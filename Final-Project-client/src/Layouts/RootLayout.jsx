@@ -7,7 +7,8 @@ const RootLayout = () => {
   const location = useLocation();
   console.log(location);
 
-  const noHeaderFooter = location.pathname.includes("/login"  || "/register" );
+  const noHeaderFooter = location.pathname.includes("/login");
+  const contactPage = location.pathname.includes("/contact");
 
   return (
     <div>
@@ -17,7 +18,9 @@ const RootLayout = () => {
       {
         noHeaderFooter || <>
         <Footer />
-        <Footer2 />        
+        {
+          contactPage || <Footer2 />
+        }        
         </>
       }
 
