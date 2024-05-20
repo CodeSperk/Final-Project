@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import HomeBanner from "./Banner/HomeBanner";
 import FoodCategory from "./FoodCategory/FoodCategory";
 import MenuItem from "../../Components/MenuItem/MenuItem";
@@ -8,18 +8,13 @@ import "./Featured/Featured.css";
 import Testimonial from "./Testimonial/Testimonial";
 import { Helmet } from "react-helmet-async";
 import SectionHeader from "../../Components/SectionHeader/SectionHeader";
+import useMenu from "../../Hooks/useMenu";
 
 const Home = () => {
-  const [menus, setMenus] = useState([]);
+  const [menu] = useMenu();
   const [itemLength, setItemLength] = useState(4);
 
-  useEffect(() => {
-    fetch("/menu.json")
-      .then((res) => res.json())
-      .then((data) => setMenus(data));
-  }, []);
-
-  const popularMenus = menus.filter((menu) => menu.category === "popular");
+  const popularMenus = menu.filter((item) => item.category === "popular");
 
   return (
     <div>
@@ -45,11 +40,7 @@ const Home = () => {
           subHeading="Popular Menu"
         ></SectionHeader>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {popularMenus.slice(0, itemLength).map((menu) => (
-            <MenuItem key={menu._id} item={menu}></MenuItem>
-          ))}
-        </div>
+        <MenuItem items={popularMenus}></MenuItem>
 
         {popularMenus.length > 4 && itemLength === 4 && (
           <div onClick={() => setItemLength(popularMenus.length)}>
@@ -83,8 +74,6 @@ const Home = () => {
         ></SectionHeader>
         <Testimonial></Testimonial>
       </section>
-
-      
     </div>
   );
 };
