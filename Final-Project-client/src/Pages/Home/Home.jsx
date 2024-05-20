@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import SectionHeader from "../../Components/Footer/SectionHeader";
 import HomeBanner from "./Banner/HomeBanner";
 import FoodCategory from "./FoodCategory/FoodCategory";
 import MenuItem from "../../Components/MenuItem/MenuItem";
@@ -8,6 +7,7 @@ import FeaturedContent from "./Featured/FeaturedContent";
 import "./Featured/Featured.css";
 import Testimonial from "./Testimonial/Testimonial";
 import { Helmet } from "react-helmet-async";
+import SectionHeader from "../../Components/SectionHeader/SectionHeader";
 
 const Home = () => {
   const [menus, setMenus] = useState([]);

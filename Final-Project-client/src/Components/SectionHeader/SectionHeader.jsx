@@ -9,8 +9,6 @@ const SectionHeader = ({heading, subHeading}) => {
   );
 };
 
-
-
 SectionHeader.propTypes={
   heading:PropTypes.node,
   subHeading:PropTypes.node,
