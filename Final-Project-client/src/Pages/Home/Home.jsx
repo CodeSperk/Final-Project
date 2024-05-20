@@ -6,6 +6,7 @@ import MenuItem from "../../Components/MenuItem/MenuItem";
 import MenuButton from "../../Components/MenuButton/MenuButton";
 import FeaturedContent from "./Featured/FeaturedContent";
 import "./Featured/Featured.css"
+import Testimonial from "./Testimonial/Testimonial";
 
 const Home = () => {
   const [menus, setMenus] = useState([]);
@@ -63,6 +64,18 @@ const Home = () => {
         <FeaturedContent></FeaturedContent>
         </div>
       </section>
+
+
+            {/* Testimonial section */}
+            
+        <section className="mt-12 md:mt-16 lg:mt-24 max-w-[1400px] mx-auto px-3 md:px-8 lg:px-10 py-12 md:py-20 lg:py-28">
+        <SectionHeader
+          heading="What Our Client Say"
+          subHeading="Testimonial"
+         ></SectionHeader>
+        <Testimonial></Testimonial>
+        </section>
+
 
 
 
