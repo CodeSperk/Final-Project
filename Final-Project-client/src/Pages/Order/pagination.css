@@ -1,0 +1,29 @@
+.pagination .container li{
+  color: var(--clr-heading);
+}
+.pagination .container li:hover{
+  color: var(--clr-accent);
+}
+.pagination .container .next:hover, .pagination .container .previous:hover{
+color: var(--clr-heading);
+}
+.pagination .container .disabled:hover{
+color: var(--clr-primary);
+}
+
+.pagination .container .selected{
+color: var(--clr-accent);
+}
+
+.pagination .container .previous, .pagination .container .next{
+  background: var(--clr-accent);
+  padding: 12px;
+  border-radius: 50%;
+  border:2px solid transparent;
+  color: white;
+}
+.pagination .container .disabled{
+background: var(--bg-primary);
+border:2px solid transparent;
+color:var(--clr-primary);
+}
