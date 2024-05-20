@@ -4,7 +4,8 @@ import HomeBanner from "./Banner/HomeBanner";
 import FoodCategory from "./FoodCategory/FoodCategory";
 import MenuItem from "../../Components/MenuItem/MenuItem";
 import MenuButton from "../../Components/MenuButton/MenuButton";
-
+import FeaturedContent from "./Featured/FeaturedContent";
+import "./Featured/Featured.css"
 
 const Home = () => {
   const [menus, setMenus] = useState([]);
@@ -51,6 +52,20 @@ const Home = () => {
             </div> 
           }
       </section>
+
+            {/* featured section */}
+            <section className="featured-section">
+        <div className="mt-12 md:mt-16 lg:mt-24 max-w-[1400px] mx-auto px-3 md:px-8 lg:px-10 py-12 md:py-20 lg:py-28">
+        <SectionHeader
+          heading="FROM OUR MENU"
+          subHeading="Featured Menu"
+         ></SectionHeader>
+        <FeaturedContent></FeaturedContent>
+        </div>
+      </section>
+
+
+
       
     </div>
   );

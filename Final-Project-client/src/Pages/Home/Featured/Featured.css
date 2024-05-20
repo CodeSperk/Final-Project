@@ -1,0 +1,12 @@
+.featured-section{
+  background-color: black;
+  background-image: url("../../../assets/home/featured.jpg");
+  mix-blend-mode: multiply;
+
+  min-height: 770px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
