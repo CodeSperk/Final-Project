@@ -2,8 +2,27 @@ import { Link } from "react-router-dom";
 import loginBg from "../../assets/others/authentication.png";
 import loginImg from "../../assets/others/authentication2.png";
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
+import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import { useEffect, useRef, useState } from "react";
 
 const Login = () => {
+  const captchaRef = useRef(null);
+  const [disabled, setDisabled] = useState(true);
+
+  const handleCaptcha = () => {
+    const userCaptcha = captchaRef.current.value;
+    if(validateCaptcha(userCaptcha)){
+      setDisabled(false);
+    }else{
+      setDisabled(true);
+    }
+  }
+
+  useEffect(()=>{
+    loadCaptchaEnginge(5); 
+  },[])
+
+
   return (
     <div
       className="bg-no-repeat bg-center bg-cover min-h-screen py-24 px-4"
@@ -46,16 +65,10 @@ const Login = () => {
               </div>
 
               {/* captcha display Field */}
-              <div className="form-control mt-6">
-                <input
-                  type="text"
-                  name="captcha"
-                  placeholder=""
-                  className="input input-bordered focus:outline-none"
-                  readOnly
-                />
+              <div className="">
+               <LoadCanvasTemplate />
               </div>
-
+              
               {/* captcha input Field */}
               <div className="form-control mt-6">
                 <input
@@ -63,8 +76,10 @@ const Login = () => {
                   name="captcha"
                   placeholder="Type captcha here"
                   className="input input-bordered focus:outline-none"
+                  ref={captchaRef}
                   required
                 />
+                <p className="bg-white rounded hover:text-[var(--clr-accent)] cursor-pointer" onClick={handleCaptcha}>Validate</p>
               </div>
 
               <div className="form-control mt-6">
