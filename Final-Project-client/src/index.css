@@ -1,3 +1,122 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=raleway:wght@100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root{
+  /* text-colors */
+  --clr-primary: #737373;
+  --clr-secondary:#1F2937;
+  --clr-heading: #151515;
+  --clr-white:#fff;
+
+  --clr-accent: #BB8506;
+  --clr-accent-2:#EEFF25;
+
+  /* background-colors */
+  --bg-primary: #D9D9D9;
+  
+
+  /* fonts */
+  --font-primary: "Inter", sans-serif;
+  --font-secondary: "Cinzel", serif;
+  --font-raleway: "Raleway", sans-serif;
+}
+
+body{
+  font-family: var(--font-primary);
+  color:var(--clr-primary);
+  font-size: 14px;
+}
+.font-inter{
+  font-family: var(--font-primary);
+}
+.font-cinzel{
+  font-family: var(--font-secondary);
+}
+.font-raleway{
+  font-family: var(--font-raleway);
+}
+
+p{
+  line-height: 1.5rem;
+}
+h1,h2,h3,h4,h5{
+  color:var(--clr-heading);
+}
+h1{
+  font-size: 32px;
+  font-weight: 700;
+}
+h2{
+  font-size: 28px;
+}
+h3{
+  font-size: 24px;
+  font-weight: 800;
+}
+h4{
+  font-size: 20px;
+  font-weight: 600;
+}
+h5{
+  font-size: 18px;
+  font-weight: 500;
+}
+h6{
+  font-size:18px;
+}
+
+.btn{
+  padding: 8px 20px;
+  background: var(--clr-accent);
+  color:var(--clr-white);
+  font-size: 1rem;
+  border: 2px solid var(--clr-accent);
+  border-radius: 8px;
+  cursor: poraleway;
+  transition: all 0.3s ease;
+}
+.btn:hover{
+  color: var(--clr-accent);
+  border: 2px solid var(--clr-accent);
+}
+
+
+@media screen and (min-width: 768px) {
+  body{
+    font-size: 1rem;
+  }
+  h1{
+    font-size: 40px;
+  }
+  h2{
+    font-size: 30px;
+  }
+  .btn{
+    padding: 10px 20px;
+  }
+ }
+
+@media screen and (min-width: 1024px){
+  p{
+    line-height: 1.3rem;
+  }
+  h1{
+    font-size: 60px;
+  }
+  h2{
+    font-size: 36px;
+  }
+  h3{
+    font-size: 28px;
+  }
+  h4{
+    font-size: 24px;
+  }
+  h5,h6{
+    font-size: 20px;
+  } 
+}
