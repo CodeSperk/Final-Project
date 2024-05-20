@@ -3,6 +3,7 @@ import SectionHeader from '../../../Components/SectionHeader/SectionHeader';
 import CoverSec from '../../../Components/SectionCover/CoverSec';
 import MenuItem from '../../../Components/MenuItem/MenuItem';
 import MenuButton from '../../../Components/MenuButton/MenuButton';
+import { Link } from 'react-router-dom';
 
 
 const MenuCategory = ({items, btnText, heading, subHeading, coverImg, coverTitle, coverDescription}) => {
@@ -23,7 +24,11 @@ const MenuCategory = ({items, btnText, heading, subHeading, coverImg, coverTitle
       }
 
       <MenuItem items={items}></MenuItem>
+      
+      <Link to={`/order/${coverTitle}`}>
       <MenuButton text={btnText}></MenuButton>
+      </Link>
+      
     </section>
   );
 };

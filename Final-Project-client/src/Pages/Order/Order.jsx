@@ -7,9 +7,22 @@ import "react-tabs/style/react-tabs.css";
 // custom Styles
 import "./orderTabs.css";
 import { useState } from "react";
+import useMenu from "../../Hooks/useMenu";
+import TabContent from "./TabContent";
+import { useParams } from "react-router-dom";
 
 const Order = () => {
-  const [tabIndex, setTabIndex] = useState(0);
+  const categories = ['salad', 'pizza', 'soup', 'dessert', 'drink'];
+  const {category} = useParams();
+  const initialIndex = categories.indexOf(category);
+  const [tabIndex, setTabIndex] = useState(initialIndex);
+  const [menu] = useMenu();
+
+  const saladItems = menu.filter(item => item.category === "salad");
+  const pizzaItems = menu.filter(item => item.category === "pizza");
+  const soupItems = menu.filter(item => item.category === "soup");
+  const dessertItems = menu.filter(item => item.category === "dessert");
+  const drinkItems = menu.filter(item => item.category === "drink");
 
   return (
     <div>
@@ -24,7 +37,7 @@ const Order = () => {
 
         {/* Category wise Menu Items section */}
         <section className="mt-12 md:mt-16 lg:mt-24 max-w-[1400px] mx-auto px-3 md:px-8 lg:px-10 text-center">
-      <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
+      <Tabs defaultIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
         <TabList className="uppercase mb-10 md:mb-16">
           <Tab>Salad</Tab>
           <Tab>Pizza</Tab>
@@ -33,11 +46,24 @@ const Order = () => {
           <Tab>drinks</Tab>
         </TabList>
 
-        <TabPanel>Salad</TabPanel>
-        <TabPanel>Pizza</TabPanel>
-        <TabPanel>soups</TabPanel>
-        <TabPanel>desserts</TabPanel>
-        <TabPanel>drinks</TabPanel>
+        <TabPanel>
+          <TabContent items={saladItems}></TabContent>
+        </TabPanel>
+        <TabPanel>
+          <TabContent items={pizzaItems}></TabContent>
+        </TabPanel>
+        <TabPanel>
+          <TabContent items={soupItems}></TabContent>
+        </TabPanel>
+        <TabPanel>
+          <TabContent items={dessertItems}></TabContent>
+        </TabPanel>
+        <TabPanel>
+          <TabContent items={drinkItems}></TabContent>
+        </TabPanel>
+       
+        
+        
       </Tabs>
       </section>
     </div>
