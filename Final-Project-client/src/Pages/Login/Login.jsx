@@ -3,11 +3,13 @@ import loginBg from "../../assets/others/authentication.png";
 import loginImg from "../../assets/others/authentication2.png";
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const Login = () => {
   const captchaRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
+  const {loginUser} = useContext(AuthContext);
 
   const handleCaptcha = () => {
     const userCaptcha = captchaRef.current.value;
@@ -23,6 +25,23 @@ const Login = () => {
   },[])
 
 
+  const handleLogin = e => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    loginUser(email,password)
+    .then(result => {
+      // console.log(result.user);
+    })
+    .catch(error => {
+      console.log(error.code);
+    })
+
+  }
+
+
   return (
     <div
       className="bg-no-repeat bg-center bg-cover min-h-screen py-24 px-4"
@@ -33,7 +52,7 @@ const Login = () => {
         
             <img src={loginImg} alt="" className="md:w-1/2"/>
           <div className="md:w-1/2 text-center">
-            <form className="card-body">
+            <form className="card-body" onSubmit={handleLogin}>
               <h3 className="text-center">Login</h3>
 
               {/* email field */}
@@ -83,7 +102,7 @@ const Login = () => {
               </div>
 
               <div className="form-control mt-6">
-                <button className="btn ">Login</button>
+                <button className="btn" disabled={disabled}>Login</button>
               </div>
             </form>
 
