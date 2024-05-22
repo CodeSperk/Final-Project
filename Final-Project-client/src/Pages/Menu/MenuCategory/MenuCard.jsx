@@ -3,8 +3,9 @@ import CardButton from "../../../Components/CardButton/CardButton";
 import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 const MenuCard = ({ item }) => {
-  const {image, name, recipe } = item;
+  const {image, name, recipe, _id, price} = item;
   // console.log(item);
   const {user} = useAuth();
   const location = useLocation();
@@ -12,7 +13,28 @@ const MenuCard = ({ item }) => {
 
   const handleAddToCart = food => {
     if(user && user.email){
-      console.log(food);
+      // console.log(user, user.email);
+
+      const cartItem = {
+        menuId: _id,
+        userEmail: user.email,
+        name,
+        image,
+        price  
+      }
+      axios.post("http://localhost:5000/carts", cartItem)
+      .then(res => {
+        if(res.data.insertedId){
+          Swal.fire({
+            icon: "success",
+            title: `${cartItem.name} Added to the cart!`,
+            showConfirmButton: false,
+            timer: 1200
+          });
+        }
+      })
+
+
     }else{
       Swal.fire({
         title: "You are not Logged In",
