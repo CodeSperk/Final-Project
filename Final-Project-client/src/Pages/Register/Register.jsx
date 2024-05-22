@@ -2,37 +2,18 @@ import { Link } from "react-router-dom";
 import loginBg from "../../assets/others/authentication.png";
 import loginImg from "../../assets/others/authentication2.png";
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
-import { useContext } from "react";
-import { AuthContext } from "../../Providers/AuthProvider";
-import { updateProfile } from "firebase/auth";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
-  const {createUser, logOutUser} = useContext(AuthContext);
+    const {
+      register,
+      handleSubmit,
+      formState: { errors },
+    } = useForm();
 
-  const handleSignUp = e => {
-    e.preventDefault();
-    const form = e.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const password = form.password.value;
-    
-    createUser(email, password)
-    .then(result => {
-      console.log(result.user);
-
-      // To update profile
-      updateProfile(result.user, {
-        displayName:name,
-      }).then().catch(error=>console.log(error.code));
-
-      // to logout user
-      logOutUser().then(console.log("logout Success")).catch(error => console.log(error.code))
-    })
-    .catch(error => {
-      console.log(error.code);
-    })
-  }
-
+    const onSubmit = data => {
+      console.log(data);
+    }
 
   return (
     <div
@@ -43,7 +24,7 @@ const Register = () => {
         <div className="border-2 shadow-xl py-14 px-4 md:px-12 lg:px-16 xl:px-20 flex flex-col md:flex-row-reverse justify-between items-center gap-6 lg:gap-12 xl:gap-24">
           <img src={loginImg} alt="" className="md:w-1/2" />
           <div className="md:w-1/2 text-center">
-            <form className="card-body" onSubmit={handleSignUp}>
+            <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
               <h3 className="text-center">Sign Up</h3>
 
               {/* name field */}
@@ -53,11 +34,29 @@ const Register = () => {
                 </label>
                 <input
                   type="text"
-                  name="name"
+                  {...register("name", {required: true})}
                   placeholder="Type here"
                   className="input input-bordered focus:outline-none"
                   required
                 />
+                   {errors.name && <span className="text-red-500">Email is required</span>}
+              </div>
+
+              {/* Age field */}
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Age</span>
+                </label>
+                <input
+                  type="number"
+                  {...register("age", {required: true, min:18, max: 30})}
+                  placeholder="Type here"
+                  className="input input-bordered focus:outline-none"
+                />
+                   {errors.age?.type === "required" && <span className="text-red-500">This field is required</span>}
+                   {errors.age?.type === "min" && <span className="text-red-500">You are too young</span>}
+              {errors.age?.type === "max" && <span className="text-red-500">You are old</span>}
+
               </div>
 
               {/* email field */}
@@ -67,10 +66,9 @@ const Register = () => {
                 </label>
                 <input
                   type="email"
-                  name="email"
+                  {...register("email")}
                   placeholder="email"
                   className="input input-bordered focus:outline-none"
-                  required
                 />
               </div>
 
@@ -81,11 +79,15 @@ const Register = () => {
                 </label>
                 <input
                   type="password"
-                  name="password"
+                  {...register("password", {required: true, minLength:8, maxLength:12, pattern: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/})}
+
                   placeholder="password"
                   className="input input-bordered focus:outline-none"
-                  required
                 />
+                {errors.password?.type === "required" && <span className="text-red-500">Password is required</span>}
+                {errors.password?.type === "minLength" && <span className="text-red-500">Minimum Length is 8</span>}
+                {errors.password?.type === "maxLength" && <span className="text-red-500">Max length is 12</span>}
+                {errors.password?.type === "pattern" && <span className="text-red-500">At Least one Uppercase, one LowerCase, one Number & one Special Character</span>}
               </div>
 
               <div className="form-control mt-6">
