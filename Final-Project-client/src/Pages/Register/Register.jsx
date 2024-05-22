@@ -4,10 +4,8 @@ import loginImg from "../../assets/others/authentication2.png";
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
-import { useContext } from "react";
-import { AuthContext } from "../../Providers/AuthProvider";
-import { updateProfile } from "firebase/auth";
 import Swal from "sweetalert2";
+import useAuth from "../../Hooks/useAuth";
 
 const Register = () => {
     const {
@@ -15,7 +13,7 @@ const Register = () => {
       handleSubmit,
       formState: { errors },
     } = useForm();
-    const {createUser, updateUser, logOutUser} = useContext(AuthContext);
+    const {createUser, updateUser, logOutUser} = useAuth();
     const navigate = useNavigate();
 
     const onSubmit = data => {

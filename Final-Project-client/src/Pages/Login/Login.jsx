@@ -3,14 +3,14 @@ import loginBg from "../../assets/others/authentication.png";
 import loginImg from "../../assets/others/authentication2.png";
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
+import useAuth from "../../Hooks/useAuth";
+import { useEffect, useState } from "react";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
-  const {loginUser} = useContext(AuthContext);
+  const {loginUser} = useAuth();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();

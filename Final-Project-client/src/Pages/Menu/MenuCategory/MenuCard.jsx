@@ -1,12 +1,15 @@
 import PropTypes from "prop-types";
 import CardButton from "../../../Components/CardButton/CardButton";
+import useAuth from "../../../Hooks/useAuth";
 const MenuCard = ({ item }) => {
   const {image, name, recipe } = item;
   // console.log(item);
+  const {user} = useAuth();
 
   const handleAddToCart = food => {
     console.log(food);
   };
+
   return (
     <div className="bg-[var(--bg-primary)] max-w-96 flex flex-col">
       <img src={image} alt="" className="w-full" />

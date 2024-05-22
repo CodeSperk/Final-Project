@@ -28,6 +28,7 @@ async function run() {
   try {
     const menuCollection = client.db("TasteTrackDB").collection("menu");
     const reviewCollection = client.db("TasteTrackDB").collection("reviews");
+    const cartCollection = client.db("TasteTrackDB").collection("cart");
 
     // To get menu data
     app.get("/menu", async(req, res) => {
@@ -41,7 +42,13 @@ async function run() {
       res.send(result);
     })
     
-
+    // To manage cart data
+    // ========================
+    app.post("/carts", async(req,res) => {
+      const cartItem = req.body;
+      const result = cartCollection.insertOne(cartItem);
+      res.send(result);
+    })
 
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
