@@ -5,14 +5,16 @@ import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const captchaRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
   const {loginUser} = useContext(AuthContext);
 
-  const handleCaptcha = () => {
-    const userCaptcha = captchaRef.current.value;
+  const handleCaptcha = (e) => {
+    e.preventDefault();
+    const userCaptcha = e.target.value;
     if(validateCaptcha(userCaptcha)){
       setDisabled(false);
     }else{
@@ -32,8 +34,13 @@ const Login = () => {
     const password = form.password.value;
 
     loginUser(email,password)
-    .then(result => {
-      // console.log(result.user);
+    .then( () => {
+      Swal.fire({
+        icon: "success",
+        title: "Your work has been saved",
+        showConfirmButton: false,
+        timer: 1500
+      });
     })
     .catch(error => {
       console.log(error.code);
@@ -95,10 +102,10 @@ const Login = () => {
                   name="captcha"
                   placeholder="Type captcha here"
                   className="input input-bordered focus:outline-none"
-                  ref={captchaRef}
+                  onBlur={handleCaptcha}
                   required
                 />
-                <p className="bg-white rounded hover:text-[var(--clr-accent)] cursor-pointer" onClick={handleCaptcha}>Validate</p>
+                
               </div>
 
               <div className="form-control mt-6">
