@@ -1,9 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginBg from "../../assets/others/authentication.png";
 import loginImg from "../../assets/others/authentication2.png";
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
+import { updateProfile } from "firebase/auth";
+import Swal from "sweetalert2";
 
 const Register = () => {
     const {
@@ -11,9 +15,28 @@ const Register = () => {
       handleSubmit,
       formState: { errors },
     } = useForm();
+    const {createUser, logOutUser} = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const onSubmit = data => {
-      console.log(data);
+      // console.log(data);
+
+      createUser(data.email, data.password)
+      .then(result => {
+        updateProfile(result.user, {
+          displayName:data.name
+        }).then(() => {}).catch(error=>console.log(error.code))
+
+        logOutUser().then().catch(error => console.log(error.code))
+
+        Swal.fire({
+          icon:"success",
+          title: "Registration Successful",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        navigate("/login")
+      })
     }
 
   return (
@@ -43,7 +66,7 @@ const Register = () => {
                   className="input input-bordered focus:outline-none"
                   required
                 />
-                   {errors.name && <span className="text-red-500">Email is required</span>}
+                   {errors.name && <span className="text-red-500">Name is required</span>}
               </div>
 
               {/* Age field */}
