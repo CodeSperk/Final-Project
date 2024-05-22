@@ -6,6 +6,10 @@ const DashboardCart = () => {
   const [cart] = useCart();
 
   const totalPrice = cart.reduce((prev, current) => prev + current.price , 0)
+
+  const handleDeleteItem = (id) => {
+    console.log(id);
+  }
   
   return (
     <div className="px-12 w-full py-12">
@@ -48,7 +52,7 @@ const DashboardCart = () => {
           <td>{item.name}</td>
           <td>{item.price}</td>
           <td>
-          <button className="bg-red-700 rounded-sm p-2 text-white"><RiDeleteBin6Line /></button>
+          <button className="bg-red-700 rounded-sm p-2 text-white" onClick={() => handleDeleteItem(item._id)}><RiDeleteBin6Line /></button>
           </td>
         </tr>)
       }
