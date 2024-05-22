@@ -15,17 +15,17 @@ const Register = () => {
       handleSubmit,
       formState: { errors },
     } = useForm();
-    const {createUser, logOutUser} = useContext(AuthContext);
+    const {createUser, updateUser, logOutUser} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const onSubmit = data => {
       // console.log(data);
 
       createUser(data.email, data.password)
-      .then(result => {
-        updateProfile(result.user, {
-          displayName:data.name
-        }).then(() => {}).catch(error=>console.log(error.code))
+      .then(() => {
+        updateUser(data.name)
+          .then(() => {})
+          .catch(error=>console.log(error.code))
 
         logOutUser().then().catch(error => console.log(error.code))
 
