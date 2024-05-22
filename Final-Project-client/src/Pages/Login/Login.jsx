@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginBg from "../../assets/others/authentication.png";
 import loginImg from "../../assets/others/authentication2.png";
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
@@ -11,6 +11,9 @@ import { Helmet } from "react-helmet-async";
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
   const {loginUser} = useContext(AuthContext);
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
 
   const handleCaptcha = (e) => {
     e.preventDefault();
@@ -41,13 +44,13 @@ const Login = () => {
         showConfirmButton: false,
         timer: 1500
       });
+      navigate(from,{replace:true});
     })
     .catch(error => {
       console.log(error.code);
     })
 
   }
-
 
   return (
     <div
