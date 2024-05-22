@@ -2,8 +2,38 @@ import { Link } from "react-router-dom";
 import loginBg from "../../assets/others/authentication.png";
 import loginImg from "../../assets/others/authentication2.png";
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
+import { updateProfile } from "firebase/auth";
 
 const Register = () => {
+  const {createUser, logOutUser} = useContext(AuthContext);
+
+  const handleSignUp = e => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    
+    createUser(email, password)
+    .then(result => {
+      console.log(result.user);
+
+      // To update profile
+      updateProfile(result.user, {
+        displayName:name,
+      }).then().catch(error=>console.log(error.code));
+
+      // to logout user
+      logOutUser().then(console.log("logout Success")).catch(error => console.log(error.code))
+    })
+    .catch(error => {
+      console.log(error.code);
+    })
+  }
+
+
   return (
     <div
       className="bg-no-repeat bg-center bg-cover min-h-screen py-24 px-4"
@@ -13,7 +43,7 @@ const Register = () => {
         <div className="border-2 shadow-xl py-14 px-4 md:px-12 lg:px-16 xl:px-20 flex flex-col md:flex-row-reverse justify-between items-center gap-6 lg:gap-12 xl:gap-24">
           <img src={loginImg} alt="" className="md:w-1/2" />
           <div className="md:w-1/2 text-center">
-            <form className="card-body">
+            <form className="card-body" onSubmit={handleSignUp}>
               <h3 className="text-center">Sign Up</h3>
 
               {/* name field */}
