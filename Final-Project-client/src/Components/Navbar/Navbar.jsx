@@ -38,7 +38,7 @@ const Navbar = () => {
         <NavLink to="/contact">Contact</NavLink>
       </li>
       <li className="relative">
-        <Link className="text-xl"> <FaCartShopping />
+        <Link className="text-xl" to="/dashboard/cart"> <FaCartShopping />
         </Link>
         <p className="absolute right-0 -top-2 bg-[var(--clr-accent)] py-0 px-2">{carts.length}</p>
       </li>

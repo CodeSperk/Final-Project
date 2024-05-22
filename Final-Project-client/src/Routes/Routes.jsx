@@ -8,6 +8,8 @@ import Register from "../Pages/Register/Register";
 import Contact from "../Pages/Contact/Contact";
 import PrivateRout from "./PrivateRout";
 import Secret from "../Pages/Secret/Secret";
+import Dashboard from "../Layouts/Dashboard";
+import DashboardCart from "../Pages/DashboardCart/DashboardCart";
 
 const Routes = createBrowserRouter([
   {
@@ -42,6 +44,16 @@ const Routes = createBrowserRouter([
   {
     path:"/register",
     element:<Register></Register>
+  },
+  {
+    path:"/dashboard",
+    element:<Dashboard></Dashboard>,
+    children:[
+      {
+        path: "cart",
+        element:<DashboardCart></DashboardCart>
+      }
+    ]
   }
 ])
 

@@ -4,6 +4,7 @@ import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import useCart from "../../../Hooks/useCart";
 
 
 const MenuCard = ({ item }) => {
@@ -13,11 +14,11 @@ const MenuCard = ({ item }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
+  const [, refetch] = useCart();
 
 
-  const handleAddToCart = food => {
+  const handleAddToCart = () => {
     if(user && user.email){
-      // console.log(user, user.email);
 
       const cartItem = {
         menuId: _id,
@@ -35,6 +36,8 @@ const MenuCard = ({ item }) => {
             showConfirmButton: false,
             timer: 1200
           });
+          //refetch cart to update the cart items count
+          refetch();
         }
       })
 
@@ -65,7 +68,7 @@ const MenuCard = ({ item }) => {
         </div>
       </div>
       <div className="p-6 pt-0">
-        <div onClick={() => handleAddToCart(item)}>
+        <div onClick={handleAddToCart}>
           <CardButton text="Add to Cart"></CardButton>
         </div>
       </div>
