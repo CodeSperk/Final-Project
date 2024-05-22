@@ -1,13 +1,33 @@
 import PropTypes from "prop-types";
 import CardButton from "../../../Components/CardButton/CardButton";
 import useAuth from "../../../Hooks/useAuth";
+import Swal from "sweetalert2";
+import { useLocation, useNavigate } from "react-router-dom";
 const MenuCard = ({ item }) => {
   const {image, name, recipe } = item;
   // console.log(item);
   const {user} = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleAddToCart = food => {
-    console.log(food);
+    if(user && user.email){
+      console.log(food);
+    }else{
+      Swal.fire({
+        title: "You are not Logged In",
+        text: "Please Login to Add to the cart!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Login!"
+      }).then(result => {
+        if(result.isConfirmed){
+          navigate("/login", {state:{from:location}});
+        }
+      })
+    }
   };
 
   return (
