@@ -3,12 +3,12 @@ import loginBg from "../../assets/others/authentication.png";
 import loginImg from "../../assets/others/authentication2.png";
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
-  const captchaRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
   const {loginUser} = useContext(AuthContext);
 
@@ -54,6 +54,11 @@ const Login = () => {
       className="bg-no-repeat bg-center bg-cover min-h-screen py-24 px-4"
       style={{ background: `url(${loginBg})` }}
     >
+
+      <Helmet>
+        <title>TasteTrack | Login</title>
+      </Helmet>
+
       <div className="max-w-[1400px] mx-auto px-3 md:px-8 lg:px-10 h-25">
         <div className="border-2 shadow-xl py-14 px-4 md:px-12 lg:px-16 xl:px-20 flex flex-col md:flex-row justify-between items-center gap-6 lg:gap-12 xl:gap-24">
         
@@ -105,7 +110,6 @@ const Login = () => {
                   onBlur={handleCaptcha}
                   required
                 />
-                
               </div>
 
               <div className="form-control mt-6">

@@ -3,6 +3,7 @@ import loginBg from "../../assets/others/authentication.png";
 import loginImg from "../../assets/others/authentication2.png";
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
     const {
@@ -20,6 +21,9 @@ const Register = () => {
       className="bg-no-repeat bg-center bg-cover min-h-screen py-24 px-4"
       style={{ background: `url(${loginBg})` }}
     >
+            <Helmet>
+        <title>TasteTrack | Register</title>
+      </Helmet>
       <div className="max-w-[1400px] mx-auto px-3 md:px-8 lg:px-10 h-25">
         <div className="border-2 shadow-xl py-14 px-4 md:px-12 lg:px-16 xl:px-20 flex flex-col md:flex-row-reverse justify-between items-center gap-6 lg:gap-12 xl:gap-24">
           <img src={loginImg} alt="" className="md:w-1/2" />
