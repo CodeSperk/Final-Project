@@ -6,6 +6,8 @@ import Order from "../Pages/Order/Order";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import Contact from "../Pages/Contact/Contact";
+import PrivateRout from "./PrivateRout";
+import Secret from "../Pages/Secret/Secret";
 
 const Routes = createBrowserRouter([
   {
@@ -30,6 +32,10 @@ const Routes = createBrowserRouter([
       {
         path:"/contact",
         element:<Contact></Contact>
+      },
+      {
+        path:"/secret",
+        element:<PrivateRout><Secret></Secret></PrivateRout>
       }
     ]
   },
