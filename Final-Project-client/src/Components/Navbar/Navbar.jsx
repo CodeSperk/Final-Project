@@ -2,9 +2,11 @@ import { Link, NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FaCartShopping } from "react-icons/fa6";
 import useAuth from "../../Hooks/useAuth";
+import useCart from "../../Hooks/useCart";
 
 const Navbar = () => {
   const {user, logOutUser} = useAuth();
+  const [carts] = useCart();
 
   const handleLogout = () => {
     logOutUser().then(() => {
@@ -38,7 +40,7 @@ const Navbar = () => {
       <li className="relative">
         <Link className="text-xl"> <FaCartShopping />
         </Link>
-        <p className="absolute right-0 -top-2 bg-[var(--clr-accent)] py-0 px-2">1</p>
+        <p className="absolute right-0 -top-2 bg-[var(--clr-accent)] py-0 px-2">{carts.length}</p>
       </li>
       {user? <li onClick={handleLogout}>
         <Link>Logout</Link>

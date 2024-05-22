@@ -44,11 +44,17 @@ async function run() {
     
     // To manage cart data
     // ========================
+    app.get("/carts", async(req,res) => {
+      const result = await cartCollection.find().toArray();
+      res.send(result);
+    })
+    
     app.post("/carts", async(req,res) => {
       const cartItem = req.body;
       const result = await cartCollection.insertOne(cartItem);
       res.send(result);
     })
+
 
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
