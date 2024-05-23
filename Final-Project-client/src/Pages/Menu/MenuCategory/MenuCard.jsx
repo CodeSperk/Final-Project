@@ -40,7 +40,6 @@ const MenuCard = ({ item }) => {
           refetch();
         }
       })
-
     }else{
       Swal.fire({
         title: "You are not Logged In",

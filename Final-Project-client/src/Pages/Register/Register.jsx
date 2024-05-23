@@ -6,43 +6,55 @@ import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Register = () => {
-    const {
-      register,
-      handleSubmit,
-      formState: { errors },
-    } = useForm();
-    const {createUser, updateUser, logOutUser} = useAuth();
-    const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const { createUser, updateUser, logOutUser } = useAuth();
+  const navigate = useNavigate();
 
-    const onSubmit = data => {
-      // console.log(data);
+  const onSubmit = (data) => {
+    // console.log(data);
 
-      createUser(data.email, data.password)
-      .then(() => {
-        updateUser(data.name)
-          .then(() => {})
-          .catch(error=>console.log(error.code))
+    createUser(data.email, data.password).then(() => {
+      updateUser(data.name)
+        .then(() => {})
+        .catch((error) => console.log(error.code));
 
-        logOutUser().then().catch(error => console.log(error.code))
+      const userInfo = {
+        name: data.name,
+        email: data.email,
+      };
 
-        Swal.fire({
-          icon:"success",
-          title: "Registration Successful",
-          showConfirmButton: false,
-          timer: 1500
-        });
-        navigate("/login")
-      })
-    }
+      axiosPublic.post("/users", userInfo).then((res) => {
+        if (res.data.insertedId) {
+          logOutUser()
+            .then()
+            .catch((error) => console.log(error.code));
+
+          Swal.fire({
+            icon: "success",
+            title: "Registration Successful",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate("/login");
+        }
+      });
+    });
+  };
 
   return (
     <div
       className="bg-no-repeat bg-center bg-cover min-h-screen py-24 px-4"
       style={{ background: `url(${loginBg})` }}
     >
-            <Helmet>
+      <Helmet>
         <title>TasteTrack | Register</title>
       </Helmet>
       <div className="max-w-[1400px] mx-auto px-3 md:px-8 lg:px-10 h-25">
@@ -59,12 +71,14 @@ const Register = () => {
                 </label>
                 <input
                   type="text"
-                  {...register("name", {required: true})}
+                  {...register("name", { required: true })}
                   placeholder="Type here"
                   className="input input-bordered focus:outline-none"
                   required
                 />
-                   {errors.name && <span className="text-red-500">Name is required</span>}
+                {errors.name && (
+                  <span className="text-red-500">Name is required</span>
+                )}
               </div>
 
               {/* Age field */}
@@ -74,14 +88,19 @@ const Register = () => {
                 </label>
                 <input
                   type="number"
-                  {...register("age", {required: true, min:18, max: 30})}
+                  {...register("age", { required: true, min: 18, max: 30 })}
                   placeholder="Type here"
                   className="input input-bordered focus:outline-none"
                 />
-                   {errors.age?.type === "required" && <span className="text-red-500">This field is required</span>}
-                   {errors.age?.type === "min" && <span className="text-red-500">You are too young</span>}
-              {errors.age?.type === "max" && <span className="text-red-500">You are old</span>}
-
+                {errors.age?.type === "required" && (
+                  <span className="text-red-500">This field is required</span>
+                )}
+                {errors.age?.type === "min" && (
+                  <span className="text-red-500">You are too young</span>
+                )}
+                {errors.age?.type === "max" && (
+                  <span className="text-red-500">You are old</span>
+                )}
               </div>
 
               {/* email field */}
@@ -104,15 +123,30 @@ const Register = () => {
                 </label>
                 <input
                   type="password"
-                  {...register("password", {required: true, minLength:8, maxLength:12, pattern: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/})}
-
+                  {...register("password", {
+                    required: true,
+                    minLength: 8,
+                    maxLength: 12,
+                    pattern: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/,
+                  })}
                   placeholder="password"
                   className="input input-bordered focus:outline-none"
                 />
-                {errors.password?.type === "required" && <span className="text-red-500">Password is required</span>}
-                {errors.password?.type === "minLength" && <span className="text-red-500">Minimum Length is 8</span>}
-                {errors.password?.type === "maxLength" && <span className="text-red-500">Max length is 12</span>}
-                {errors.password?.type === "pattern" && <span className="text-red-500">At Least one Uppercase, one LowerCase, one Number & one Special Character</span>}
+                {errors.password?.type === "required" && (
+                  <span className="text-red-500">Password is required</span>
+                )}
+                {errors.password?.type === "minLength" && (
+                  <span className="text-red-500">Minimum Length is 8</span>
+                )}
+                {errors.password?.type === "maxLength" && (
+                  <span className="text-red-500">Max length is 12</span>
+                )}
+                {errors.password?.type === "pattern" && (
+                  <span className="text-red-500">
+                    At Least one Uppercase, one LowerCase, one Number & one
+                    Special Character
+                  </span>
+                )}
               </div>
 
               <div className="form-control mt-6">

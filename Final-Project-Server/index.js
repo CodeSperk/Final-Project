@@ -26,9 +26,19 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
+    const userCollection = client.db("TasteTrackDB").collection("users");
     const menuCollection = client.db("TasteTrackDB").collection("menu");
     const reviewCollection = client.db("TasteTrackDB").collection("reviews");
     const cartCollection = client.db("TasteTrackDB").collection("cart");
+
+    // Manage users info
+    // ===================
+    app.post("/users", async(req, res) =>{
+      const user = req.body;
+      const result = await userCollection.insertOne(user);
+      res.send(result);
+    })
+
 
     // To get menu data
     app.get("/menu", async(req, res) => {

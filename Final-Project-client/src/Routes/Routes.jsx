@@ -47,7 +47,7 @@ const Routes = createBrowserRouter([
   },
   {
     path:"/dashboard",
-    element:<Dashboard></Dashboard>,
+    element:<PrivateRout><Dashboard></Dashboard></PrivateRout>,
     children:[
       {
         path: "cart",
