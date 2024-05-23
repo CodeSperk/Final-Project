@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
 import useAuth from "../../Hooks/useAuth";
 import { useEffect, useState } from "react";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
@@ -14,6 +15,7 @@ const Login = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const handleCaptcha = (e) => {
     e.preventDefault();
@@ -56,7 +58,15 @@ const Login = () => {
     loginWithGoogle()
     .then(result => {
       console.log(result.user);
-      navigate(from,{replace:true});
+      const userInfo = {
+        name: result.user?.displayName,
+        email: result.user?.email
+      }
+      axiosPublic.post("/users", userInfo)
+      .then(res => {
+        console.log(res.data);
+        navigate(from,{replace:true});
+      })
     })
     .catch(error => {
       console.log(error.code);
