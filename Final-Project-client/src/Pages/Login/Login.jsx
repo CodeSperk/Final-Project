@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
-  const {loginUser} = useAuth();
+  const {loginUser, loginWithGoogle} = useAuth();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
@@ -49,7 +49,18 @@ const Login = () => {
     .catch(error => {
       console.log(error.code);
     })
+    }
 
+  // Google Login
+  const handleGoogleLogin = () => {
+    loginWithGoogle()
+    .then(result => {
+      console.log(result.user);
+      navigate(from,{replace:true});
+    })
+    .catch(error => {
+      console.log(error.code);
+    })
   }
 
   return (
@@ -125,7 +136,7 @@ const Login = () => {
 
             <div className="flex items-center justify-center gap-4">
             <FaFacebookF className="border-2 border-[var(--clr-primary)] hover:border-[var(--clr-accent)] hover:text-[var(--clr-accent)] p-2 text-4xl rounded-full text-[var(--clr-primary)] cursor-pointer duration-1000 hover:scale-125"/>
-            <FaGoogle className="border-2 border-[var(--clr-primary)] hover:border-[var(--clr-accent)] hover:text-[var(--clr-accent)] p-2 text-4xl rounded-full text-[var(--clr-primary)] cursor-pointer duration-1000 hover:scale-125"/>
+            <FaGoogle className="border-2 border-[var(--clr-primary)] hover:border-[var(--clr-accent)] hover:text-[var(--clr-accent)] p-2 text-4xl rounded-full text-[var(--clr-primary)] cursor-pointer duration-1000 hover:scale-125" onClick={handleGoogleLogin}/>
             <FaGithub className="border-2 border-[var(--clr-primary)] hover:border-[var(--clr-accent)] hover:text-[var(--clr-accent)] p-2 text-4xl rounded-full text-[var(--clr-primary)] cursor-pointer duration-1000 hover:scale-125"/>
 
             </div>
