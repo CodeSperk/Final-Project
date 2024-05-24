@@ -3,9 +3,12 @@ import { Navigate, useLocation } from 'react-router-dom';
 import useAuth from '../Hooks/useAuth';
 
 const PrivateRout = ({children}) => {
-  const {user} = useAuth();
+  const {user, loading} = useAuth();
   const location = useLocation();
 
+  if(loading){
+    return <div className='text-6xl'>Loading...</div>
+  }
   if(user) {
     return children;
   }
