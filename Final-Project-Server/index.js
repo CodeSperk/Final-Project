@@ -12,6 +12,7 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// to verify Token
 const verifyToken = (req, res, next) => {
   console.log("inside verify token", req.headers.authorization);
   if(!req.headers.authorization){
@@ -59,9 +60,23 @@ async function run() {
     // Manage users info
     // ===================
     app.get("/users", verifyToken, async(req, res) =>{
-
       const result = await userCollection.find().toArray();
       res.send(result);
+    })
+
+    // to get admin
+    app.get('/users/admin/:email', verifyToken, async(req, res) => {
+      const email = req.params.email;
+      if(email !== req.decoded.email){
+        return res.status(403).send({message: 'unauthorized access'})
+      }
+      const query = {email: email}
+      const user = await userCollection.findOne(query);
+      let admin = false;
+      if(user) {
+        admin = user?.role === 'admin';
+      }
+      res.send({admin});
     })
 
     app.post("/users", async(req, res) =>{

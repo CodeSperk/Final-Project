@@ -57,14 +57,12 @@ const Login = () => {
   const handleGoogleLogin = () => {
     loginWithGoogle()
     .then(result => {
-      console.log(result.user);
       const userInfo = {
         name: result.user?.displayName,
         email: result.user?.email
       }
       axiosPublic.post("/users", userInfo)
       .then(res => {
-        console.log(res.data);
         navigate(from,{replace:true});
       })
     })

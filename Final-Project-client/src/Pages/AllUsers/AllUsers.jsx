@@ -66,7 +66,6 @@ const AllUsers = () => {
     });
   };
 
-  console.log(users);
   return (
     <div className="p-4 md:p-8 lg:p-10 w-full my-16 mx-4 md:mx-10 lg:mx-20 bg-slate-100 rounded-lg">
       <h4>Total Users: {users.length}</h4>

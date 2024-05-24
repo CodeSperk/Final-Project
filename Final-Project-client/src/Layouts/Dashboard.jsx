@@ -1,11 +1,12 @@
-import { useState } from "react";
 import { FaAddressBook, FaBook, FaCalendar, FaHome, FaList, FaShopify, FaShoppingCart, FaUsers, FaUtensils } from "react-icons/fa";
 import { FaSquareVimeo } from "react-icons/fa6";
 import { MdContacts, MdMenu, MdOutlinePayment } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
+import useAdmin from "../Hooks/useAdmin";
 
 const Dashboard = () => {
-  const [isAdmin, setIsAdmin] = useState(true);
+  const isAdmin = useAdmin();
+
   return (
     <div className="flex">
       <div className="w-72 min-h-screen bg-[var(--clr-accent)] text-white flex justify-center items-start py-16 px-8">
