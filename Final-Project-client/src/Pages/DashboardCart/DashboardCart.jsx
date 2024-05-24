@@ -32,9 +32,7 @@ const DashboardCart = () => {
           }
         });
       }
-    });
-
-   
+    });   
   };
 
   return (
