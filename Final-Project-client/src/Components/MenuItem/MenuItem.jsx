@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 
 const MenuItem = ({ items }) => {
-  // console.log(items);
 
   // const {name, recipe, image, price} = item;
   return (

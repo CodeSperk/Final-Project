@@ -8,12 +8,16 @@ import "./Featured/Featured.css";
 import Testimonial from "./Testimonial/Testimonial";
 import { Helmet } from "react-helmet-async";
 import SectionHeader from "../../Components/SectionHeader/SectionHeader";
+import useAuth from "../../Hooks/useAuth";
 import useMenu from "../../Hooks/useMenu";
 
 const Home = () => {
-  const [menu] = useMenu();
+  const {user} = useAuth();
+  console.log(user);
+  const [isPending, menu] = useMenu();
   const [itemLength, setItemLength] = useState(4);
 
+isPending && <div>Loading</div>
   const popularMenus = menu.filter((item) => item.category === "popular");
 
   return (
@@ -21,6 +25,7 @@ const Home = () => {
       <Helmet>
         <title>TasteTrack | Home </title>
       </Helmet>
+      
 
       <HomeBanner></HomeBanner>
 

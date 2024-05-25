@@ -6,11 +6,14 @@ import Order from "../Pages/Order/Order";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import Contact from "../Pages/Contact/Contact";
-import PrivateRout from "./PrivateRout";
 import Secret from "../Pages/Secret/Secret";
 import Dashboard from "../Layouts/Dashboard";
-import DashboardCart from "../Pages/DashboardCart/DashboardCart";
 import AllUsers from "../Pages/AllUsers/AllUsers";
+import AddItems from "../Pages/AddItems/AddItems";
+import ManageItems from "../Pages/ManageItems/ManageItems";
+import ManageBookings from "../Pages/ManageBookings/ManageBookings";
+import PrivateRout from "./PrivateRout";
+import MyCart from "../Pages/Dashboard/UsersPages/MyCart/MyCart";
 
 const Routes = createBrowserRouter([
   {
@@ -52,10 +55,22 @@ const Routes = createBrowserRouter([
     children:[
       {
         path: "cart",
-        element:<DashboardCart></DashboardCart>
+        element:<MyCart></MyCart>
       },
 
       // Admin routes
+      {
+        path:"addItems",
+        element:<AddItems></AddItems>
+      },
+      {
+        path:"manageItems",
+        element:<ManageItems></ManageItems>
+      },
+      {
+        path:"manageBookings",
+        element:<ManageBookings></ManageBookings>
+      },
       {
         path:"users",
         element:<AllUsers></AllUsers>

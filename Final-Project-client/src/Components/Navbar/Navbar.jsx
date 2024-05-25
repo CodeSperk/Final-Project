@@ -37,6 +37,11 @@ const Navbar = () => {
       <li>
         <NavLink to="/contact">Contact</NavLink>
       </li>
+      {
+        user && <li>
+        <NavLink to="/dashboard">Dashboard</NavLink>
+      </li>
+      }
       <li className="relative">
         <Link className="text-xl" to="/dashboard/cart"> <FaCartShopping />
         </Link>

@@ -9,8 +9,8 @@ import useMenu from "../../Hooks/useMenu";
 import MenuCategory from "./MenuCategory/MenuCategory";
 
 const Menu = () => {
-  const [menu] = useMenu();
-
+  const [isPending, menu] = useMenu();
+  isPending && <div>Loading</div>
   const offeredItems = menu.filter((item) => item.category === "offered");
   const dessertItems = menu.filter((item) => item.category === "dessert");
   const pizzaItems = menu.filter((item) => item.category === "pizza");

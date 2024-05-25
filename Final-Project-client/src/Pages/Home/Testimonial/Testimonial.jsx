@@ -8,20 +8,24 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Navigation } from "swiper/modules";
-import { useEffect, useState } from "react";
 
 import { Rating } from '@smastrom/react-rating'
 
 import '@smastrom/react-rating/style.css'
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 const Testimonial = () => {
-  const [reviews, setReviews] = useState([]);
+  const axiosPublic = useAxiosPublic();
+  const {isPending, data:  reviews = []} = useQuery({
+    queryKey:["reviews"],
+    queryFn: async () => {
+      const res = await axiosPublic("/reviews")
+      return res.data;
+    }
+  })
 
-  useEffect(() => {
-    fetch("http://localhost:5000/reviews")
-      .then((res) => res.json())
-      .then((data) => setReviews(data));
-  }, []);
+  isPending && <div>Loading</div>
 
   return (
     <Swiper navigation={true} modules={[Navigation]} className="mySwiper">

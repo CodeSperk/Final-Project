@@ -1,14 +1,17 @@
 import { RiDeleteBin6Line } from "react-icons/ri";
-import SectionHeader from "../../Components/SectionHeader/SectionHeader";
-import useCart from "../../Hooks/useCart";
-import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import SectionHeader from "../../../../Components/SectionHeader/SectionHeader";
+import useCart from "../../../../Hooks/useCart";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 
-const DashboardCart = () => {
-  const [cart, refetch] = useCart();
+const MyCart = () => {
+  const [isPending, cart, refetch] = useCart();
   const axiosSecure = useAxiosSecure();
 
+  console.log(cart);
   const totalPrice = cart.reduce((prev, current) => prev + current.price, 0);
+  
+  {isPending && <h3>Loading</h3>}
 
   const handleDeleteItem = (id) => {
     Swal.fire({
@@ -95,4 +98,4 @@ const DashboardCart = () => {
   );
 };
 
-export default DashboardCart;
+export default MyCart;
