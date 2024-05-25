@@ -8,12 +8,9 @@ import "./Featured/Featured.css";
 import Testimonial from "./Testimonial/Testimonial";
 import { Helmet } from "react-helmet-async";
 import SectionHeader from "../../Components/SectionHeader/SectionHeader";
-import useAuth from "../../Hooks/useAuth";
 import useMenu from "../../Hooks/useMenu";
 
 const Home = () => {
-  const {user} = useAuth();
-  console.log(user);
   const [isPending, menu] = useMenu();
   const [itemLength, setItemLength] = useState(4);
 

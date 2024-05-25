@@ -8,12 +8,19 @@ import Register from "../Pages/Register/Register";
 import Contact from "../Pages/Contact/Contact";
 import Secret from "../Pages/Secret/Secret";
 import Dashboard from "../Layouts/Dashboard";
-import AllUsers from "../Pages/AllUsers/AllUsers";
-import AddItems from "../Pages/AddItems/AddItems";
-import ManageItems from "../Pages/ManageItems/ManageItems";
-import ManageBookings from "../Pages/ManageBookings/ManageBookings";
 import PrivateRout from "./PrivateRout";
 import MyCart from "../Pages/Dashboard/UsersPages/MyCart/MyCart";
+import AdminHome from "../Pages/Dashboard/AdminPages/AdminHome/AdminHome";
+import UserHome from "../Pages/Dashboard/UsersPages/UserHome/UserHome";
+import Reservation from "../Pages/Dashboard/UsersPages/Reservation/Reservation";
+import PaymentHistory from "../Pages/Dashboard/UsersPages/PaymentHistory/PaymentHistory";
+import AddReview from "../Pages/Dashboard/UsersPages/AddReview/AddReview";
+import MyBookings from "../Pages/Dashboard/UsersPages/MyBookings/MyBookings";
+import AddItems from "../Pages/Dashboard/AdminPages/AddItems/AddItems";
+import ManageItems from "../Pages/Dashboard/AdminPages/ManageItems/ManageItems";
+import ManageBookings from "../Pages/Dashboard/AdminPages/ManageBookings/ManageBookings";
+import AllUsers from "../Pages/Dashboard/AdminPages/AllUsers/AllUsers";
+import AdminRoutes from "./AdminRoutes";
 
 const Routes = createBrowserRouter([
   {
@@ -53,27 +60,52 @@ const Routes = createBrowserRouter([
     path:"/dashboard",
     element:<PrivateRout><Dashboard></Dashboard></PrivateRout>,
     children:[
+      // Admin routes
+      {
+      path:"",
+        element: <AdminHome><AdminHome></AdminHome></AdminHome>
+      },
+      {
+        path:"addItems",
+        element:<AdminRoutes><AddItems></AddItems></AdminRoutes>
+      },
+      {
+        path:"manageItems",
+        element:<AdminRoutes><ManageItems></ManageItems></AdminRoutes>
+      },
+      {
+        path:"manageBookings",
+        element:<AdminRoutes><ManageBookings></ManageBookings></AdminRoutes>
+      },
+      {
+        path:"users",
+        element:<AdminRoutes><AllUsers></AllUsers></AdminRoutes>
+      },
+
+      // Users Routes
+      {
+        path:"userHome",
+        element: <UserHome></UserHome>
+      },
+      {
+        path:"reservation",
+        element:<Reservation></Reservation>
+      },
+      {
+        path:"payment",
+        element:<PaymentHistory></PaymentHistory>
+      },
       {
         path: "cart",
         element:<MyCart></MyCart>
       },
-
-      // Admin routes
       {
-        path:"addItems",
-        element:<AddItems></AddItems>
+        path:"addReview",
+        element:<AddReview></AddReview>
       },
       {
-        path:"manageItems",
-        element:<ManageItems></ManageItems>
-      },
-      {
-        path:"manageBookings",
-        element:<ManageBookings></ManageBookings>
-      },
-      {
-        path:"users",
-        element:<AllUsers></AllUsers>
+        path:"bookings",
+        element:<MyBookings></MyBookings>
       }
     ]
   }

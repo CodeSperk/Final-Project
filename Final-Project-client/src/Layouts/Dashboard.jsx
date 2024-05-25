@@ -12,9 +12,14 @@ import {
 import { FaSquareVimeo } from "react-icons/fa6";
 import { MdContacts, MdMenu, MdOutlinePayment } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
+import useAdmin from "../Hooks/useAdmin";
+import useAuth from "../Hooks/useAuth";
 
 const Dashboard = () => {
-  const isAdmin = false;
+  const {user} = useAuth();
+  const [isAdmin] = useAdmin();
+
+console.log(user, isAdmin);
 
   const adminLinks = (
     <>
@@ -84,7 +89,7 @@ const Dashboard = () => {
     </li>
     <li>
       <NavLink
-        to="/dashboard/reservation"
+        to="/dashboard/payment"
         className="flex items-center gap-4 text-xl"
       >
         <MdOutlinePayment></MdOutlinePayment>
@@ -103,7 +108,7 @@ const Dashboard = () => {
     </li>
     <li>
       <NavLink
-        to="/dashboard/cart"
+        to="/dashboard/addReview"
         className="flex items-center gap-4 text-xl"
       >
         <FaSquareVimeo></FaSquareVimeo>
@@ -112,7 +117,7 @@ const Dashboard = () => {
     </li>
     <li>
       <NavLink
-        to="/dashboard/cart"
+        to="/dashboard/bookings"
         className="flex items-center gap-4 text-xl"
       >
         <FaAddressBook></FaAddressBook>

@@ -8,6 +8,7 @@ const Navbar = () => {
   const {user, logOutUser} = useAuth();
   const [carts] = useCart();
 
+
   const handleLogout = () => {
     logOutUser().then(() => {
       Swal.fire({
@@ -37,11 +38,7 @@ const Navbar = () => {
       <li>
         <NavLink to="/contact">Contact</NavLink>
       </li>
-      {
-        user && <li>
-        <NavLink to="/dashboard">Dashboard</NavLink>
-      </li>
-      }
+
       <li className="relative">
         <Link className="text-xl" to="/dashboard/cart"> <FaCartShopping />
         </Link>

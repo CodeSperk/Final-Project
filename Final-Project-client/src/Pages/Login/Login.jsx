@@ -130,12 +130,12 @@ const Login = () => {
                   placeholder="Type captcha here"
                   className="input input-bordered focus:outline-none"
                   onBlur={handleCaptcha}
-                  required
+                  // required
                 />
               </div>
 
               <div className="form-control mt-6">
-                <button className="btn" disabled={disabled}>Login</button>
+                <button className="btn">Login</button>
               </div>
             </form>
 
