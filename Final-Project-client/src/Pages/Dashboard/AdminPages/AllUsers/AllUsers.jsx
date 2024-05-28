@@ -67,7 +67,9 @@ const AllUsers = () => {
   };
 
   return (
-    <div className="p-4 md:p-8 lg:p-10 w-full my-16 mx-4 md:mx-10 lg:mx-20 bg-slate-100 rounded-lg">
+
+
+    <main className="p-4 md:p-8 lg:p-10 my-16 w-[65vw] mx-4 md:mx-10 lg:mx-20 bg-slate-100 rounded-lg first-letter:">
       <h4>Total Users: {users.length}</h4>
 
       <div className="overflow-x-auto">
@@ -112,7 +114,8 @@ const AllUsers = () => {
           </tbody>
         </table>
       </div>
-    </div>
+    </main>
+    
   );
 };
 
