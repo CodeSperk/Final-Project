@@ -94,7 +94,7 @@ async function run() {
       res.send({admin});
     })
 
-    app.post("/users", async (req, res) => {
+    app.post("/users", verifyToken, verifyAdmin, async (req, res) => {
       const user = req.body;
       //insert email if user doesnt exits:
       // three ways : 1. unique email, 2. upsert 3. simple
@@ -133,6 +133,13 @@ async function run() {
     //===========================
     app.get("/menu", async (req, res) => {
       const result = await menuCollection.find().toArray();
+      res.send(result);
+    });
+
+    app.post('/menu', async (req, res) => {
+      const newMenu = req.body;
+      // console.log(newMenu);
+      const result = await menuCollection.insertOne(newMenu);
       res.send(result);
     });
 

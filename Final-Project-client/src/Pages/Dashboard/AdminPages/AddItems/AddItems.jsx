@@ -1,10 +1,51 @@
 import { ImSpoonKnife } from "react-icons/im";
 import SectionHeader from "../../../../Components/SectionHeader/SectionHeader";
 import { useForm } from "react-hook-form"
+import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 
 const AddItems = () => {
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
+
+  const onSubmit = async (data) => {
+    console.log(data)
+    //image upload to imgbb
+    const imageFile = { image : data.image[0] }
+    const res = await axiosPublic.post(image_hosting_api, imageFile, {
+      headers: {
+        'content-type' : 'multipart/form-data'
+      }
+    })
+    if(res.data.success){
+      // now send the menu data tot the server with the image url
+      const newMenu = {
+      name : data.name,
+      category : data.category,
+      price : parseFloat(data.price),
+      recipe : data.recipe,
+      image : res.data.data.display_url
+      }
+      
+      const res2 = await axiosSecure.post('/menu', newMenu);
+      if(res2.data.insertedId){
+        //show success popup
+        Swal.fire({
+          title: `${data.name} Added successful`,
+          icon: "success"
+        });
+      }
+      
+    }
+  };
+
+
+
   return (
     <main className="w-full">
       <div className="my-12">
@@ -30,8 +71,8 @@ const AddItems = () => {
           <div className="my-4 flex flex-col gap-4 md:gap-6 md:flex-row">
             <div className="flex flex-col space-y-2 md:w-1/2">
               <label id="recipe-category">Category *</label>
-              <select className="px-4 py-2 outline-none rounded-sm" {...register('category', {required: true})}>
-                <option disabled selected className="my-2">Select a Category</option>
+              <select defaultValue="default" className="px-4 py-2 outline-none rounded-sm" {...register('category', {required: true})}>
+                <option disabled className="my-2">Select a Category</option>
                 <option value="salad" className="my-2">
                   Salad
                 </option>
