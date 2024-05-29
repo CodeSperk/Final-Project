@@ -21,6 +21,7 @@ import ManageItems from "../Pages/Dashboard/AdminPages/ManageItems/ManageItems";
 import ManageBookings from "../Pages/Dashboard/AdminPages/ManageBookings/ManageBookings";
 import AllUsers from "../Pages/Dashboard/AdminPages/AllUsers/AllUsers";
 import AdminRoutes from "./AdminRoutes";
+import UpdateItem from "../Pages/Dashboard/AdminPages/UpdateItem/UpdateItem";
 
 const Routes = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ const Routes = createBrowserRouter([
       {
         path:"manageBookings",
         element:<AdminRoutes><ManageBookings></ManageBookings></AdminRoutes>
+      },
+      {
+        path:"update/:id",
+        element:<AdminRoutes><UpdateItem></UpdateItem></AdminRoutes>
       },
       {
         path:"users",
